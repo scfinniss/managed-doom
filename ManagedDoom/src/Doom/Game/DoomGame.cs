@@ -108,7 +108,7 @@ namespace ManagedDoom
 			{
 				if (players[i].InGame && players[i].PlayerState == PlayerState.Reborn)
 				{
-					DoReborn(i);
+					DoWorldDone();
 				}
 			}
 
@@ -474,7 +474,9 @@ namespace ManagedDoom
 			gameAction = GameAction.Nothing;
 
 			gameState = GameState.Level;
-			options.Map = options.IntermissionInfo.NextLevel + 1;
+			options.Map = LevelRandomizer.GetMap(options.GameMode);
+			options.Episode = LevelRandomizer.GetEpisode(options.GameMode);
+			
 			DoLoadLevel();
 		}
 

@@ -72,6 +72,8 @@ namespace ManagedDoom.Silk
 
         public unsafe void Render(Doom doom)
         {
+            device.Clear(ClearBuffers.Color);
+            
             renderer.Render(doom, textureData);
 
             texture.SetData<byte>(textureData, 0, 0, (uint)renderer.Height, (uint)renderer.Width);
@@ -92,7 +94,12 @@ namespace ManagedDoom.Silk
         {
             silkWindowWidth = width;
             silkWindowHeight = height;
-            device.SetViewport(0, 0, (uint)width, (uint)height);
+
+            var (aspectCorrectWidth, aspectCorrectHeight) = (double)width / height > 4.0 / 3.0
+                ? (height * 4 / 3, height)
+                : (width, width * 3 / 4);
+            
+            device.SetViewport((width - aspectCorrectWidth) / 2, (height - aspectCorrectHeight) / 2, (uint)aspectCorrectWidth, (uint)aspectCorrectHeight);
             shader.Projection = Matrix4x4.CreateOrthographicOffCenter(0, width, height, 0, 0, 1);
         }
 

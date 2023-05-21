@@ -69,16 +69,22 @@ namespace ManagedDoom.Silk
 
         public static SilkMusic GetMusicInstance(Config config, GameContent content, AudioDevice device)
         {
-            var sfPath = Path.Combine(ConfigUtilities.GetExeDirectory(), config.audio_soundfont);
-            if (File.Exists(sfPath))
+            var sfPaths = new[] 
             {
-                return new SilkMusic(config, content, device, sfPath);
-            }
-            else
+                config.audio_soundfont,
+                Path.Combine(ConfigUtilities.GetExeDirectory(), config.audio_soundfont)
+            };
+
+            foreach (var sfPath in sfPaths) 
             {
-                Console.WriteLine("SoundFont '" + config.audio_soundfont + "' was not found!");
-                return null;
+                if (File.Exists(sfPath))
+                {
+                    return new SilkMusic(config, content, device, sfPath);
+                }
             }
+            
+            Console.WriteLine("SoundFont '" + config.audio_soundfont + "' was not found!");
+            return null;
         }
     }
 }

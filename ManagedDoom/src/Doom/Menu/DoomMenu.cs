@@ -277,7 +277,7 @@ namespace ManagedDoom
                 this,
                 "M_DOOM", 94, 2,
                 0,
-                new SimpleMenuItem("M_NGAME", 65, 59, 97, 64, null, episodeMenu),
+                new SimpleMenuItem("M_NGAME", 65, 59, 97, 64, null, skillMenu),
                 new SimpleMenuItem("M_OPTION", 65, 75, 97, 80, null, optionMenu),
                 new SimpleMenuItem("M_LOADG", 65, 91, 97, 96, null, load),
                 new SimpleMenuItem("M_SAVEG", 65, 107, 97, 112, null, save,

@@ -179,6 +179,8 @@ namespace ManagedDoom
 
         public void NewGame(GameSkill skill, int episode, int map)
         {
+            map = LevelRandomizer.GetMap(game.Options.GameMode);
+            episode = LevelRandomizer.GetEpisode(game.Options.GameMode);
             game.DeferedInitNew(skill, episode, map);
             nextState = DoomState.Game;
         }
